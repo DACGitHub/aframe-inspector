@@ -560,7 +560,7 @@ export function printEntity(entity, onDoubleClick) {
   return (
     <span className="entityPrint" onDoubleClick={onDoubleClick}>
       <span className="entityTagName">
-        {'<' + entity.tagName.toLowerCase()}
+        
       </span>
       {entityName && (
         <span className="entityName" data-entity-name-type={type}>
@@ -573,7 +573,7 @@ export function printEntity(entity, onDoubleClick) {
           dangerouslySetInnerHTML={{ __html: icons }}
         />
       )}
-      <span className="entityCloseTag">{'>'}</span>
+      <span className="entityCloseTag"></span>
     </span>
   );
 }

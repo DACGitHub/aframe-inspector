@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
   </head>
   <body>
-    <a-scene debug="true">
+    <a-scene debug="true" inspector="url: http://localhost:3333/dist/aframe-inspector.js">
       <a-assets>
         <a-mixin id="blue" material="color: #4CC3D9"></a-mixin>
         <a-mixin id="blueBox" geometry="primitive: box; depth: 2; height: 5; width: 1" material="color: #4CC3D9"></a-mixin>
@@ -60,6 +60,6 @@
       <a-entity id="rightHand" laser-controls="hand: right"></a-entity>
     </a-scene>
 
-    <script src="../dist/aframe-inspector.js"></script>
+    <!-- <script src="../dist/aframe-inspector.js"></script> -->
   </body>
 </html>
