@@ -1,8 +1,8 @@
 /* global XMLHttpRequest JSON */
 import Events from './Events';
 
-const assetsBaseUrl = 'https://aframe.io/sample-assets/';
-const assetsRelativeUrl = { images: 'dist/images.json' };
+// const assetsBaseUrl = 'https://aframe.io/sample-assets/';
+// const assetsRelativeUrl = { images: 'dist/images.json' };
 
 /**
  * Asynchronously load and register components from the registry.

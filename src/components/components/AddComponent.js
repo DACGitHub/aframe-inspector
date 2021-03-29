@@ -40,6 +40,7 @@ export default class AddComponent extends React.Component {
    */
   getComponentsOptions() {
     const usedComponents = Object.keys(this.props.entity.components);
+
     var commonOptions = Object.keys(AFRAME.components)
       .filter(function(componentName) {
         return (
@@ -53,6 +54,16 @@ export default class AddComponent extends React.Component {
       });
 
     this.options = commonOptions;
+
+    //add in options that we want to keep.
+    var componentsToKeep = ["animation", "fog", "geometry", "gltf-model", "gltf-model-legacy", "light", "line", "material", "ocean", "shadow", "sound", "visible", "artwork"]
+    for (var i = this.options.length - 1; i >= 0; --i) {
+        // if (this.options[i].label !== "animation" || "fog" || "geometry" || "gltf-model" ) {
+        if(componentsToKeep.indexOf(this.options[i].label) === -1){
+            this.options.splice(i,1);
+        }
+    }
+
     this.options = this.options.sort(function(a, b) {
       return a.label === b.label ? 0 : a.label < b.label ? -1 : 1;
     });
