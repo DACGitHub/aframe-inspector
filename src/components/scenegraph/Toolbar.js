@@ -45,21 +45,21 @@ export default class Toolbar extends React.Component {
     };
   }
 
-  exportSceneToGLTF() {
-    ga('send', 'event', 'SceneGraph', 'exportGLTF');
-    const sceneName = getSceneName(AFRAME.scenes[0]);
-    const scene = AFRAME.scenes[0].object3D;
-    filterHelpers(scene, false);
-    AFRAME.INSPECTOR.exporters.gltf.parse(
-      scene,
-      function(buffer) {
-        filterHelpers(scene, true);
-        const blob = new Blob([buffer], { type: 'application/octet-stream' });
-        saveBlob(blob, sceneName + '.glb');
-      },
-      { binary: true }
-    );
-  }
+  // exportSceneToGLTF() {
+  //   ga('send', 'event', 'SceneGraph', 'exportGLTF');
+  //   const sceneName = getSceneName(AFRAME.scenes[0]);
+  //   const scene = AFRAME.scenes[0].object3D;
+  //   filterHelpers(scene, false);
+  //   AFRAME.INSPECTOR.exporters.gltf.parse(
+  //     scene,
+  //     function(buffer) {
+  //       filterHelpers(scene, true);
+  //       const blob = new Blob([buffer], { type: 'application/octet-stream' });
+  //       saveBlob(blob, sceneName + '.glb');
+  //     },
+  //     { binary: true }
+  //   );
+  // }
 
   addEntity() {
     Events.emit('entitycreate', { element: 'a-entity', components: {} });
