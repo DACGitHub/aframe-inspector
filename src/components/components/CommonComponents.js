@@ -148,6 +148,9 @@ export default class CommonComponents extends React.Component {
               value={entity.id}
             />
           </div>
+          <div className="propertyRow">
+            <label>Making changes in the 3D view to position, scale or size. Make sure you re-enter the values below or they won't save.</label>
+          </div>
           {/* <div className="propertyRow">
             <label className="text">class</label>
             <span>{entity.getAttribute('class')}</span>
