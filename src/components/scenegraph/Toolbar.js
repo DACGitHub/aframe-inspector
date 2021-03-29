@@ -175,12 +175,6 @@ export default class Toolbar extends React.Component {
             onClick={this.toggleScenePlaying}>
           </a>
           <a
-            className="gltfIcon"
-            title="Export to GLTF"
-            onClick={this.exportSceneToGLTF}>
-            <img src={process.env.NODE_ENV === 'production' ? 'https://aframe.io/aframe-inspector/assets/gltf.svg' : '../assets/gltf.svg'} />
-          </a>
-          <a
             className={watcherClassNames}
             title={watcherTitle}
             onClick={this.writeChanges}
