@@ -547,7 +547,14 @@ export function printEntity(entity, onDoubleClick) {
   }
 
   // Name.
-  let entityName = entity.id;
+  let entityName = 'Please name me :)'
+  let entityTagName = entity.tagName.toLowerCase()
+  if (entity.id != '') {
+    entityName = entity.id
+  } else if (entityTagName == 'a-scene') {
+    entityName = 'Scene'
+  }
+
   let type = 'id';
   if (!entity.isScene && !entityName && entity.getAttribute('class')) {
     entityName = entity.getAttribute('class').split(' ')[0];

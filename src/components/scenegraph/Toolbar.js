@@ -69,13 +69,74 @@ export default class Toolbar extends React.Component {
    * Try to write changes with aframe-inspector-watcher.
    */
   writeChanges = () => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:51234/save');
-    xhr.onerror = () => {
-      alert('aframe-watcher not running. This feature requires a companion service running locally. npm install aframe-watcher to save changes back to file. Read more at supermedium.com/aframe-watcher');
-    };
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(AFRAME.INSPECTOR.history.updates));
+    // const xhr = new XMLHttpRequest();
+    // xhr.open('POST', 'http://localhost:51234/save');
+    // xhr.onerror = () => {
+    //   alert('aframe-watcher not running. This feature requires a companion service running locally. npm install aframe-watcher to save changes back to file. Read more at supermedium.com/aframe-watcher');
+    // };
+    // xhr.setRequestHeader('Content-Type', 'application/json');
+    // xhr.send(JSON.stringify(AFRAME.INSPECTOR.history.updates));
+
+
+    var password = prompt("Please enter password to save changes", "password");
+
+    if (password == 'grays_@$$@_') {
+      // make sure all changes are flushed to dom
+      document.querySelector('a-scene').flushToDOM(true);
+
+      var parser = new window.DOMParser();
+      // var xmlDoc = document.querySelector('a-scene');
+      var xmlDoc = parser.parseFromString(document.documentElement.innerHTML, 'text/html');
+
+      // Remove all the components that are being injected by aframe-inspector or aframe
+      // @todo Use custom class to prevent this hack
+      var elementsToRemove = xmlDoc.querySelectorAll([
+      // Injected by the inspector
+      '[data-aframe-inspector]', 'script[src$="aframe-inspector.js"]', 'style[type="text/css"]','[data-aframe-canvas]',
+      // Injected by aframe
+      '[aframe-injected]', 'style[data-href$="aframe.css"]','.a-loader-title',
+      // Injected by stats
+      '.rs-base', 'style[data-href$="rStats.css"]'].join(','));
+      for (var i = 0; i < elementsToRemove.length; i++) {
+        var el = elementsToRemove[i];
+        el.parentNode.removeChild(el);
+      }
+
+
+      var xmlString;
+      var dom;
+      // IE
+      if (window.ActiveXObject) {
+        dom = xmlDoc.xml;
+      } else {
+        // Mozilla, Firefox, Opera, etc.
+        dom = new window.XMLSerializer().serializeToString(xmlDoc);
+      }
+
+      console.log(dom);
+      console.log(typeof dom);
+      var changes = {'dom': dom, 'password':password };
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/save');
+      xhr.onerror = function () {
+        alert('Changes not saved. Error with server. :(');
+      };
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+            alert("Changes saved :)");
+          } else if (xhr.status == 400) {
+            alert("Changes failed to save.");
+          } else {
+            alert("Saving changes.");
+          }
+      }
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send(JSON.stringify(changes));
+    } else {
+      alert("Password incorrect. Changes not saved");
+    }
+
   };
 
   toggleScenePlaying = () => {

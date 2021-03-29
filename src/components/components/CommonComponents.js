@@ -138,9 +138,20 @@ export default class CommonComponents extends React.Component {
             />
           </div>
           <div className="propertyRow">
+            <label htmlFor="id" className="text">
+              Name
+            </label>
+            <InputWidget
+              onChange={changeId}
+              entity={entity}
+              name="id"
+              value={entity.id}
+            />
+          </div>
+          {/* <div className="propertyRow">
             <label className="text">class</label>
             <span>{entity.getAttribute('class')}</span>
-          </div>
+          </div> */}
           {this.renderCommonAttributes()}
           <Mixins entity={entity} />
         </div>
